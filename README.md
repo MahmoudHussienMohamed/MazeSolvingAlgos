@@ -54,13 +54,16 @@ solver.TraversedNodes()             # List of Index objects representing unique 
 ```
 ![Random 50 * 50 Maze](Imgs/5050Maze.png)
 ![Previous Maze Solved with A*](Imgs/5050MazeWithAstar.png)
+
+(*Traversed cells are gray and solution is the colorful colorful path from green to red*)
+
 Note that:
 * Any algorithm have same constructor and methods including but not limited to `Astar`.
 * `SrcToDestDistance()` != `len(SrcToDestPath())` and `TraversedNodesNo()` != `len(TraversedNodes())` because I implemented the graph to be weighted for some algorithms and elemenate useless cells to increase memory efficiency and perfomance.
 
 ## Source Files
 * [MazeGenerator.h](src/MazeGenerator.h): Header file contains `RandomMazeGenerator` class.
-* [Graph.h](src/Graph.h): Header file contains most preprocessing (`Unweighted`/`weightedGrap`, `...`).
+* [Graph.h](src/Graph.h): Header file contains most preprocessing (`Unweighted`/`weightedGraph`, `...`).
 * [GraphTraversalAlgorithms.h](src/GraphTraversalAlgorithms.h): Header file contains all solving Algorithms.
 * [main.cpp](src/main.cpp): Source file which handle Python–C++ binding with pybind11.
 * [setup.py](src/setup.py) and [pyproject.toml](src/pyproject.toml): Helper files for packaging the project.
