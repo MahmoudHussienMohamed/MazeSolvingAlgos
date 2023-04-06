@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel", "pybind11"]
+build-backend = "setuptools.build_meta"
+[project]
+name = "MazeSolvingAlgos"
+version = "1.0"
+authors = [
+  { name="Mahmoud Hussien Mohamed", email="MahmoudHussienMohamed.mhm@gmail.com" },
+]
+description = "Python module written in C++ for generating and solving rectangular Mazes with Graph Traversal Algorithms."
+readme = "README.md"
+classifiers = [
+    "Programming Language :: C++",
+    "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+    "Operating System :: Microsoft :: Windows",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos"
+"repository" = "https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos"
+"Bug Tracker" = "https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos/issues"
+"documentation" = "https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos/wiki/Documentation"
