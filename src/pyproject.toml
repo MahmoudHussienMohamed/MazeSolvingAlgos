@@ -3,7 +3,7 @@ requires = ["setuptools>=61.0", "wheel", "pybind11"]
 build-backend = "setuptools.build_meta"
 [project]
 name = "MazeSolvingAlgos"
-version = "1.0"
+version = "1.4"
 authors = [
   { name="Mahmoud Hussien Mohamed", email="MahmoudHussienMohamed.mhm@gmail.com" },
 ]
