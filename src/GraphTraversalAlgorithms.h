@@ -1,5 +1,5 @@
 #pragma once
-#include "D:/PyModulesByCPP/MazeSolver/Graph.h"
+#include "Graph.h"
 #include <stack>
 #include <queue>
 class GraphTraversalAlgorithm {
