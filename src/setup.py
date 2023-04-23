@@ -22,6 +22,7 @@ setup(
     author="Mahmoud Hussien Mohamed",
     author_email="MahmoudHussienMohamed.mhm@gmail.com",
     url="https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos",
+    download_url="https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos/archive/refs/tags/v_15.tar.gz",
     description='Python module written in C++ for generating and solving rectangular Mazes with Graph Traversal Algorithms.',
     ext_modules=[sfc_module],
     classifiers=[
@@ -29,6 +30,6 @@ setup(
         "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
         "Operating System :: Microsoft :: Windows",
     ],
-    requires=["setuptools", "wheel", "pybind11"],
+    install_requires=["setuptools", "wheel", "pybind11"],
     include_package_data=True,
 )

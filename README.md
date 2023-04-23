@@ -12,10 +12,17 @@
     - BellmanFord
     - FloydWarshall
 
-## How to install
-Simply with pip:
+## How to build and install
+Prerequisites:
+* C++11 or later compiler
+* pybind11 (via `pip install pybind11`)
+* setuptools (via `pip install setuptools`)
 
-`pip install MazeSolvingAlgos`
+After Cloning repositry (via `git clone https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos.git`), open **cmd** (*run as administrator*) and do the following:
+1. change the working directory to `\MazeSolvingAlgos\src\` 
+2. run command: `python setup.py build`
+3. After building is finished, run `python setup.py install`
+
 ## How to use
 ### RandomMazeGenerator
 Use `RandomMazeGenerator` class with arguments `H`, `W`: Height and Width of the maze respectively and call `generate()` to get **W** × **H** random maze (`H`, `W` must be unsigned integers and prefered to be even numbers).
@@ -66,4 +73,4 @@ Note that:
 * [Graph.h](src/Graph.h): Header file contains most preprocessing (`Unweighted`/`weightedGraph`, `...`).
 * [GraphTraversalAlgorithms.h](src/GraphTraversalAlgorithms.h): Header file contains all solving Algorithms.
 * [main.cpp](src/main.cpp): Source file which handle Python–C++ binding with pybind11.
-* [setup.py](src/setup.py) and [pyproject.toml](src/pyproject.toml): Helper files for packaging the project.
+* [setup.py](src/setup.py): Helper file for packaging the project for python.
