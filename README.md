@@ -1,5 +1,5 @@
 # MazeSolvingAlgos
-***MazeSolvingAlgos*** is a Python module written in C++ for generating and solving rectangular Mazes with **Graph Traversal Algorithms**. This Module is a part of **TurtleInTheMaze** Project so it's especially created for ***2D grids***. *You can see **full documentation [here](https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos/wiki/Documentation)***.
+***MazeSolvingAlgos*** is a Python module written in C++ for generating and solving rectangular Mazes with **Graph Traversal Algorithms**. This Module is a part of **TurtleInTheMaze** Project (you can find it [here](https://github.com/MahmoudHussienMohamed/TurtleInTheMaze)) so it's especially created for ***2D grids***. *You can see **full documentation [here](https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos/wiki/Documentation)***.
 ## Content of module
 * Helper Classes
     * Index 
