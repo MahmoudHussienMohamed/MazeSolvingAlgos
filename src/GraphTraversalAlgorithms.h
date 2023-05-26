@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include "Graph.h"
 #include <stack>
 #include <queue>
@@ -107,7 +108,7 @@ private:
         src->visited = true;
         while (!Q.empty()) {
             Node* node = Q.front();
-            traversed.push_back(Q.front()->value);
+            traversed.push_back(node->value);
             if (node == dest)
                 return;
             Q.pop();
@@ -352,5 +353,93 @@ public:
     }
     void solve() {
         Floyd_Warshall(graph.source(), graph.destination());
+    }
+};
+class BidirectionalSearch : public GraphTraversalAlgorithm {
+public:
+    const enum VisitType{
+        notVisited      = 0b0000,
+        fromSource      = 0b0001,
+        fromDestination = 0b0010
+    };
+    struct Node : public UnWeightedNode {
+        Node* parent;
+        VisitType visited;
+        vector<Node*> neighbors;
+        Node(Index val = {}, Node* p = nullptr)
+            : UnWeightedNode(val), parent(p), visited(notVisited){}
+        Node *parentNode(){ return parent; }
+        bool is(VisitType type){ return visited == type; }
+    }*IFS, *IFD;
+    UnWeightedGraph<Node> graph;
+private:
+    class OneStepBFS{
+        Node *src, *dest, **ifs, **ifd;
+        std::queue<Node*> Q;
+        Indices *traversed;
+        VisitType type;
+    public:
+        OneStepBFS(Node* s, Node* d, VisitType t, Node **ifs, Node **ifd, Indices *traversed):
+            src(s), dest(d), ifs(ifs), ifd(ifd), type(t), traversed(traversed) {
+            Q.push(src);
+        }
+        void advance(){
+            if (noNeedToAdvance())
+                return;
+            Node* node = Q.front();
+            traversed->push_back(node->value);
+            Q.pop();
+            for (auto neighbor : node->neighbors){
+                if (neighbor->is(type))         // already visited from this side
+                    continue;
+                else if (neighbor->is(notVisited)) {
+                    neighbor->visited = type;
+                    neighbor->parent = node;
+                    Q.push(neighbor);
+                } else {                        // visited from the other side  
+                    traversed->push_back(neighbor->value);
+                    *ifs = node;
+                    *ifd = neighbor;
+                    return;
+                } 
+            }
+        }
+        bool hasNoSolution(){ return Q.empty(); }
+        bool intersectionFound(){ return *ifs && *ifd; }
+        bool noNeedToAdvance() { return hasNoSolution() || intersectionFound(); }
+    };
+public:
+    BidirectionalSearch(Grid& grid, Index start, Index end)
+        : graph(grid, start, end), IFS(nullptr), IFD(nullptr) {}
+    template<typename GTAType> 
+    static bool solved(BidirectionalSearch& gta){
+        return gta.IFS && gta.IFD;
+    }
+    template<typename GTAType>          // GTA stands for (G)raph (T)raversal (A)lgorithm
+    static void reconstructPathIfValid(BidirectionalSearch& bds) {
+        if (!solved<BidirectionalSearch>(bds))
+            return;
+        auto reconstructPath = [&](BidirectionalSearch::Node* startNode, BidirectionalSearch::Node* endNode){
+            for (BidirectionalSearch::Node* node = startNode; node != endNode; node = node->parentNode())
+                bds.path.push_back(node->value);
+            bds.path.push_back(endNode->value);
+        };
+        reconstructPath(bds.IFS, bds.graph.source());   // reconstruct path from source node to intersection from source side node
+        std::reverse(bds.path.begin(), bds.path.end());
+        reconstructPath(bds.IFD, bds.graph.destination());   // reconstruct path from intersection from destination side node to destination node
+    }
+    void solve() {
+        // Node *ifs{nullptr}, *ifd{nullptr}; // intersectionFromSource, intersectionFromDestination
+        OneStepBFS srcToDest(graph.source(), graph.destination(), fromSource,      &IFS, &IFD, &traversed),
+                   destToSrc(graph.destination(), graph.source(), fromDestination, &IFD, &IFS, &traversed);
+        while (!(srcToDest.intersectionFound() || destToSrc.intersectionFound())){
+            if (srcToDest.hasNoSolution() && destToSrc.hasNoSolution())
+                return;
+            srcToDest.advance();
+            destToSrc.advance();
+        }
+        reconstructPathIfValid<BidirectionalSearch>(*this);
+        if(solved<BidirectionalSearch>(*this))
+            setDistance(path.size() - 1);
     }
 };

@@ -33,6 +33,7 @@ PYBIND11_MODULE(MazeSolvingAlgos, m) {
     AddGTAclass(AStar);
     AddGTAclass(BellmanFord);
     AddGTAclass(FloydWarshall);
+    AddGTAclass(BidirectionalSearch);
 
 #ifdef VERSION_INFO
     m.attr("__version__") = VERSION_INFO;

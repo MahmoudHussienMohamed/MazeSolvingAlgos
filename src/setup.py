@@ -18,7 +18,7 @@ sfc_module = Extension(
 
 setup(
     name='MazeSolvingAlgos',
-    version='1.5',
+    version='1.7.0',
     author="Mahmoud Hussien Mohamed",
     author_email="MahmoudHussienMohamed.mhm@gmail.com",
     url="https://github.com/MahmoudHussienMohamed/MazeSolvingAlgos",
