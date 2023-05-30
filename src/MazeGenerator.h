@@ -6,6 +6,8 @@
 #include <stack>
 #include <ctime>
 #include <random>
+#define isOdd(x) (x % 2)
+#define randBool(RNG) bool(isOdd(RNG()))
 using namespace std;
 class RandomMazeGenerator{
     size_t width, height;
@@ -25,7 +27,7 @@ class RandomMazeGenerator{
         for(size_t i = 0; i < 4; i++){
             nx = cx + dx[directions[i]];
             ny = cy + dy[directions[i]];
-            if(nx >= 0 && ny >= 0 && nx < height && ny < width && !grid[nx][ny]){
+            if(nx >= 0 && ny >= 0 && nx < grid.size() && ny < grid[0].size() && !grid[nx][ny]){
                 grid[cx][cy] = (grid[cx][cy] | directions[i]);
                 grid[nx][ny] = (grid[nx][ny] | opposite[directions[i]]);
                 recurse(nx, ny);
@@ -34,7 +36,7 @@ class RandomMazeGenerator{
     }
 public:
     RandomMazeGenerator(size_t h, size_t w): 
-        width(w/2), height(h/2), grid(height, vector<int8_t>(width)){
+        width(w), height(h), grid(h/2, vector<int8_t>(w/2)){
         opposite[North] = South;
         opposite[South] = North;
         opposite[East] = West;
@@ -47,25 +49,42 @@ public:
         dy[South] = 1;
     }
     vector<vector<bool>> generate(){
+        size_t halfWidth = width / 2, halfHeight = height / 2; 
         mt19937 rnd(time(nullptr));
-        recurse(rnd() % height, rnd() % width);
+        recurse(rnd() % halfHeight, rnd() % halfWidth);
         vector<vector<bool>> generated;
-        size_t w = width * 2, h = height * 2; 
-        generated.reserve(h);
-        for(size_t i = 0; i < height; i++){
+        generated.reserve(height);
+        for(size_t i = 0; i < halfHeight; i++){
             vector<bool> row;
             row.reserve(width);
-            for(size_t j = 0; j < width; j++){
-                row.push_back(true);
+            for(size_t j = 0; j < halfWidth; j++){
+                if(j == halfWidth - 1)
+                    row.push_back(!(grid[i][j-1] & West));
+                else
+                    row.push_back(true);
                 row.push_back(!(grid[i][j] & East));
             }
+            if(isOdd(width))
+                row.push_back(!(grid[i].back() & East) || randBool(rnd));
             generated.push_back(row);
             row.clear();
             row.reserve(width);
-            for(size_t j = 0; j < width; j++){
+            for(size_t j = 0; j < halfWidth; j++){
                 row.push_back(!(grid[i][j] & South));
-                row.push_back(false);
+                if(j == halfWidth - 1)
+                    row.push_back(!(grid[i][j-1] & West));
+                else
+                    row.push_back(false);
             }
+            if(isOdd(width))
+                row.push_back(!(grid[i].back() & East) || randBool(rnd));
+            generated.push_back(row);
+        }
+        if(isOdd(height)){
+            vector<bool> row(width);
+            vector<int8_t> &lastRow{grid.back()};
+            for(size_t j = 0; j < width; j++)
+                row[j] = !(lastRow[j/2] & South) || randBool(rnd);
             generated.push_back(row);
         }
         return generated;
