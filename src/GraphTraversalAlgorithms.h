@@ -424,12 +424,11 @@ public:
                 bds.path.push_back(node->value);
             bds.path.push_back(endNode->value);
         };
-        reconstructPath(bds.IFS, bds.graph.source());   // reconstruct path from source node to intersection from source side node
+        reconstructPath(bds.IFS, bds.graph.source());       // reconstruct path from source node to intersection from source side node
         std::reverse(bds.path.begin(), bds.path.end());
-        reconstructPath(bds.IFD, bds.graph.destination());   // reconstruct path from intersection from destination side node to destination node
+        reconstructPath(bds.IFD, bds.graph.destination());  // reconstruct path from intersection from destination side node to destination node
     }
     void solve() {
-        // Node *ifs{nullptr}, *ifd{nullptr}; // intersectionFromSource, intersectionFromDestination
         OneStepBFS srcToDest(graph.source(), graph.destination(), fromSource,      &IFS, &IFD, &traversed),
                    destToSrc(graph.destination(), graph.source(), fromDestination, &IFD, &IFS, &traversed);
         while (!(srcToDest.intersectionFound() || destToSrc.intersectionFound())){

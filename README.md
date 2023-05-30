@@ -11,6 +11,7 @@
     - AStar
     - BellmanFord
     - FloydWarshall
+    - BidirectionalSearch
 
 ## How to build and install
 Prerequisites:
@@ -22,10 +23,14 @@ After Cloning repositry (via `git clone https://github.com/MahmoudHussienMohamed
 1. change the working directory to `\MazeSolvingAlgos\src\` 
 2. run command: `python setup.py build`
 3. After building is finished, run `python setup.py install`
+### Update v1.7.0:
+If you have a version before **1.7.0**:
+- You can simply uninstall the module (via `pip uninstall MazeSolvingAlgos`) then,  re-clone repositry and do the above instructions.
+- Or update modified files (***main.cpp***, ***RandomMazeGenerator.h***, ***GraphTraversalAlgorithms.h***, and ***setup.py***) and run [script.py](src/script.py) as administrator after updating `parentDir`.  
 
 ## How to use
 ### RandomMazeGenerator
-Use `RandomMazeGenerator` class with arguments `H`, `W`: Height and Width of the maze respectively and call `generate()` to get **W** × **H** random maze (`H`, `W` must be unsigned integers and prefered to be even numbers).
+Use `RandomMazeGenerator` class with arguments `H`, `W`: Height and Width of the maze respectively and call `generate()` to get **W** × **H** random maze (`H`, `W` must be unsigned integers).
 ``` Python
 RMG = RandomMazeGenerator(50, 50) 
 maze = RMG.generate()             # Now, maze is 50 * 50 random cells 
@@ -74,3 +79,8 @@ Note that:
 * [GraphTraversalAlgorithms.h](src/GraphTraversalAlgorithms.h): Header file contains all solving Algorithms.
 * [main.cpp](src/main.cpp): Source file which handle Python–C++ binding with pybind11.
 * [setup.py](src/setup.py): Helper file for packaging the project for python.
+* [script.py](src/script.py): Simple script automates updating the module after any modification.
+## Notes
+### Update version 1.7.0:
+- Added `BidirectionalSearch` algorithm.
+- Enhanced `RandomMazeGenerator` and **fixed *odd* dimensions bug**. 
