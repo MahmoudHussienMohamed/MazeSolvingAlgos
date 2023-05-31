@@ -357,7 +357,7 @@ public:
 };
 class BidirectionalSearch : public GraphTraversalAlgorithm {
 public:
-    const enum VisitType{
+    enum VisitType{
         notVisited      = 0b0000,
         fromSource      = 0b0001,
         fromDestination = 0b0010
